@@ -9,10 +9,11 @@
     <script src="https://unpkg.com/stimulus/dist/stimulus.umd.js" defer></script>
 
     <script type="module" defer>
-      import NestedForm from './src/index.js'
+      import { NestedForm, Removable } from './src/index.js'
 
       const application = Stimulus.Application.start()
       application.register('nested-form', NestedForm)
+      application.register('removable', Removable)
     </script>
 
     <style>
@@ -95,7 +96,7 @@
       <section data-controller="nested-form" class="mt-16">
         <form>
           <template data-target="nested-form.template">
-            <div class="mt-4">
+            <div class="mt-4 non-persisted-item" data-controller="removable" data-removable-persisted="false">
               <label for="NEW_RECORD" class="block text-sm font-medium leading-5 text-gray-700">New todo</label>
               <div class="mt-1 relative rounded-md shadow-sm">
                 <input
@@ -105,10 +106,20 @@
                   placeholder="Your todo"
                 />
               </div>
+              <a href="#" class="text-red-600 hover:text-red-900 remove" data-action="click->removable#remove"
+                >Remove</a
+              >
             </div>
           </template>
 
-          <div class="mt-4">
+          <div
+            class="mt-4"
+            id="persisted-item"
+            data-controller="removable"
+            data-removable-persisted="true"
+            data-removable-classes="hidden"
+          >
+            <input type="hidden" name="_destroy" value="0" data-target="removable.destroy" id="input-destroy" />
             <label for="todo-1" class="block text-sm font-medium leading-5 text-gray-700">Your todo</label>
             <div class="mt-1 relative rounded-md shadow-sm">
               <input
@@ -117,6 +128,9 @@
                 class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 value="Pet the cat"
               />
+              <a href="#" class="text-red-600 hover:text-red-900 remove" data-action="click->removable#remove"
+                >Remove</a
+              >
             </div>
           </div>
 

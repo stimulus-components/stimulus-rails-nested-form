@@ -1,12 +1,4 @@
-import { Controller } from 'stimulus'
+import NestedForm from './nested-form'
+import Removable from './removable'
 
-export default class extends Controller {
-  static targets = ['target', 'template']
-
-  add (e) {
-    e.preventDefault()
-
-    const content = this.templateTarget.innerHTML.replace(/NEW_RECORD/g, new Date().getTime())
-    this.targetTarget.insertAdjacentHTML('beforebegin', content)
-  }
-}
+export { NestedForm, Removable }

@@ -22,10 +22,11 @@ $ yarn add stimulus-rails-nested-form
 And use it in your JS file:
 ```js
 import { Application } from "stimulus"
-import NestedForm from "stimulus-rails-nested-form"
+import { NestedForm, Removable } from "stimulus-rails-nested-form"
 
 const application = Application.start()
 application.register("nested-form", NestedForm)
+application.register("removable", Removable)
 ```
 
 ## Usage
@@ -91,14 +92,21 @@ In your view:
 <% end %>
 ```
 
-In the `todo_form.html.erb` partial:
-```html
-<%= f.label :description %>
-<%= f.text_field :description %>
-```
-
 As explained in the [documentation](https://apidock.com/rails/ActionView/Helpers/FormHelper/fields_for), we need to
  specify the `child_index`  and replace its value in JavaScript because the index needs to be unique for each fields.
+
+In the `todo_form.html.erb` partial:
+```html
+<div data-controller="removable" data-removable-persisted="<%= f.object.persisted? %>" data-removable-classes="hidden">
+  <%= f.hidden_field :_destroy, data: { target: 'removable.destroy' } %>
+  <%= f.label :description %>
+  <%= f.text_field :description %>
+  <a href="#" data-action="click->removable#remove">Remove</a>
+</div>
+```
+
+- `data-removable-persisted`: `true`/`false` (`true` when record is saved in database, typically `record.persisted?` in Rails)
+- `data-removable-classes`: classes that will be used for persisted records to hide them (optional)
 
 ## Extending Controller
 
@@ -110,7 +118,7 @@ import NestedForm from "stimulus-rails-nested-form"
 export default class extends NestedForm {
   connect() {
     super.connect()
-    console.log("Do what you cant here.")
+    console.log("Do what you want here.")
   }
 }
 ```
