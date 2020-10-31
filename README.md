@@ -69,7 +69,7 @@ To DRY up the code, we extract the fields in a partial called `todo_form` to use
 
 In your view:
 ```html
-<%= form_with model: @user, data: { controller: 'nested-form' } do |f| %>
+<%= form_with model: @user, data: { controller: 'nested-form', nested_form_wrapper_selector: '.nested-form-wrapper' } do |f| %>
   <template data-target="nested-form.template">
     <%= f.fields_for :todos, Todo.new, child_index: 'NEW_RECORD' do |todo_fields| %>
       <%= render "todo_form", f: todo_fields %>
@@ -83,7 +83,7 @@ In your view:
   <!-- Inserted elements will be injected before that target. -->
   <div data-target="nested-form.target"></div>
 
-  <button type="button" data-action="click->nested-form#add">
+  <button type="button" data-action="nested-form#add">
     Add todo
   </button>
 
@@ -91,14 +91,29 @@ In your view:
 <% end %>
 ```
 
-In the `todo_form.html.erb` partial:
+In the `_todo_form.html.erb` partial:
 ```html
-<%= f.label :description %>
-<%= f.text_field :description %>
+<div class="nested-form-wrapper" data-new-record="<%= f.object.new_record? %>">
+  <%= f.label :description %>
+  <%= f.text_field :description %>
+
+  <button type="button" data-action="nested-form#remove">
+    Remove todo
+  </button>
+
+  <%= f.hidden_field :_destroy %>
+</div>
 ```
 
-As explained in the [documentation](https://apidock.com/rails/ActionView/Helpers/FormHelper/fields_for), we need to
- specify the `child_index`  and replace its value in JavaScript because the index needs to be unique for each fields.
+As explained in the [documentation](https://apidock.com/rails/ActionView/Helpers/FormHelper/fields_for), we need to specify the `child_index` and replace its value in JavaScript because the index needs to be unique for each fields.
+
+## Configuration
+
+| Attribute | Default | Description | Optional |
+| --------- | ------- | ----------- | -------- |
+| `data-nested-form-wrapper-selector` | `.nested-form-wrapper` | Selector to find the wrapper. | ✅ |
+
+The remove feature is completely optional.
 
 ## Extending Controller
 
