@@ -2,9 +2,12 @@ import { Controller } from 'stimulus'
 
 export default class extends Controller {
   static targets = ['target', 'template']
+  static values = {
+    wrapperSelector: String
+  }
 
   initialize () {
-    this.wrapperSelector = this.data.get('wrapperSelector') || '.nested-form-wrapper'
+    this.wrapperSelector = this.wrapperSelectorValue || '.nested-form-wrapper'
   }
 
   add (e) {

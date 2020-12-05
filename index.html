@@ -133,7 +133,7 @@
     <div class="relative h-full max-w-5xl mx-auto px-4">
       <section class="mt-16">
         <form data-controller="nested-form">
-          <template data-target="nested-form.template">
+          <template data-nested-form-target="template">
             <div class="mt-4 nested-form-wrapper" data-new-record="true">
               <label for="NEW_RECORD" class="block text-sm font-medium leading-5 text-gray-700">New todo</label>
               <div class="mt-1 flex relative rounded-md shadow-sm">
@@ -181,7 +181,7 @@
             </div>
           </div>
 
-          <div id="nested-form-target" data-target="nested-form.target"></div>
+          <div id="nested-form-target" data-nested-form-target="target"></div>
 
           <button
             id="nested-form-button"
