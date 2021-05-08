@@ -8,11 +8,13 @@ export default class extends Controller {
 
   static targets = ['target', 'template']
   static values = {
-    wrapperSelector: String
+    wrapperSelector: String,
+    actionSelector: String
   }
 
   initialize (): void {
     this.wrapperSelector = this.wrapperSelectorValue || '.nested-form-wrapper'
+    this.actionSelector = this.actionSelectorValue || '.nested-form-action'
   }
 
   add (e: Event) {

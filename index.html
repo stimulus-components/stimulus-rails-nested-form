@@ -202,6 +202,141 @@
       </section>
     </div>
 
+    <div class="relative h-full max-w-5xl mx-auto px-4">
+      <section class="mt-16">
+        <form data-controller="nested-form">
+          <template data-nested-form-target="template" data-model-template="todo">
+            <div class="mt-4 nested-form-wrapper" data-new-record="true">
+              <label for="NEW_RECORD" class="block text-sm font-medium leading-5 text-gray-700">New todo</label>
+              <div class="mt-1 flex relative rounded-md shadow-sm">
+                <input
+                  id="NEW_RECORD"
+                  name="user[todos_attributes][NEW_RECORD][description]"
+                  class="appearance-none border w-full py-2 px-3 rounded-l-md text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  placeholder="Your todo"
+                />
+
+                <button
+                  class="cursor-pointer inline-flex items-center px-3 rounded-r-md border border-l-0 border-gray-300 bg-gray-100 text-gray-500 sm:text-sm"
+                  type="button"
+                  data-action="nested-form#remove"
+                  title="Remove todo"
+                >
+                  X
+                </button>
+
+                <input type="hidden" name="user[todos_attributes][NEW_RECORD][_destroy]" />
+              </div>
+            </div>
+          </template>
+
+          <template data-nested-form-target="template" data-model-template="note">
+            <div class="mt-4 nested-form-wrapper" data-new-record="true">
+              <label for="NEW_RECORD" class="block text-sm font-medium leading-5 text-gray-700">New note</label>
+              <div class="mt-1 flex relative rounded-md shadow-sm">
+                <input
+                  id="NEW_RECORD"
+                  type="text"
+                  name="user[note_attributes][NEW_RECORD][description]"
+                  class="appearance-none border w-full py-2 px-3 rounded-l-md text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  placeholder="Your note"
+                />
+
+                <button
+                  class="cursor-pointer inline-flex items-center px-3 rounded-r-md border border-l-0 border-gray-300 bg-gray-100 text-gray-500 sm:text-sm"
+                  type="button"
+                  data-action="nested-form#remove"
+                  title="Remove note"
+                >
+                  X
+                </button>
+
+                <input type="hidden" name="user[note_attributes][NEW_RECORD][_destroy]" />
+              </div>
+            </div>
+          </template>
+
+          <div class="mt-4 nested-form-wrapper" data-new-record="false">
+            <label for="todo-1" class="block text-sm font-medium leading-5 text-gray-700">Your todo</label>
+            <div class="mt-1 flex relative rounded-md shadow-sm">
+              <input
+                id="todo-1"
+                name="user[todos_attributes][0][description]"
+                class="appearance-none border w-full py-2 px-3 rounded-l-md text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                value="Pet the cat"
+              />
+
+              <button
+                class="cursor-pointer inline-flex items-center px-3 rounded-r-md border border-l-0 border-gray-300 bg-gray-100 text-gray-500 sm:text-sm"
+                type="button"
+                data-action="nested-form#remove"
+                title="Remove todo"
+              >
+                X
+              </button>
+
+              <input type="hidden" name="user[todos_attributes][0][_destroy]" />
+            </div>
+          </div>
+
+          <div id="nested-form-target-todo" data-nested-form-target="target" data-model-target="todo"></div>
+
+          <button
+            id="nested-form-button-todo"
+            type="button"
+            data-action="nested-form#add"
+            data-model="todo"
+            class="mt-4 bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border rounded shadow nested-form-action"
+          >
+            Add todo
+          </button>
+
+          <div class="mt-4 nested-form-wrapper" data-new-record="false">
+            <label for="todo-1" class="block text-sm font-medium leading-5 text-gray-700">Your note</label>
+            <div class="mt-1 flex relative rounded-md shadow-sm">
+              <input
+                id="note-1"
+                type="text"
+                name="user[notes_attributes][0][description]"
+                class="appearance-none border w-full py-2 px-3 rounded-l-md text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                value="Buy fancy food for cat"
+              />
+
+              <button
+                class="cursor-pointer inline-flex items-center px-3 rounded-r-md border border-l-0 border-gray-300 bg-gray-100 text-gray-500 sm:text-sm"
+                type="button"
+                data-action="nested-form#remove"
+                title="Remove note"
+              >
+                X
+              </button>
+
+              <input type="hidden" name="user[notes_attributes][0][_destroy]" />
+            </div>
+          </div>
+
+          <div id="nested-form-target-note" data-nested-form-target="target" data-model-target="note"></div>
+
+          <button
+            id="nested-form-button-note"
+            type="button"
+            data-action="nested-form#add"
+            data-model="note"
+            class="mt-4 bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border rounded shadow nested-form-action"
+          >
+            Add note
+          </button>
+
+          <button
+            type="submit"
+            class="mt-4 bg-indigo-600 hover:bg-indigo-400 text-white font-semibold py-2 px-4 border rounded shadow"
+          >
+            Save
+          </button>
+        </form>
+      </section>
+    </div>
+
     <!-- This example requires Tailwind CSS v2.0+ -->
     <footer class="bg-white">
       <div class="max-w-7xl mx-auto py-12 px-4 overflow-hidden sm:px-6 lg:px-8">
