@@ -7,51 +7,42 @@
   "license": "MIT",
   "homepage": "https://github.com/stimulus-components/stimulus-rails-nested-form",
   "private": false,
-  "esnext": "dist-src/index.js",
-  "main": "dist-node/index.js",
-  "module": "dist-web/index.js",
-  "@pika/pack": {
-    "pipeline": [
-      [
-        "@pika/plugin-standard-pkg"
-      ],
-      [
-        "@pika/plugin-build-web"
-      ],
-      [
-        "@pika/plugin-build-node"
-      ]
-    ]
-  },
+  "main": "dist/stimulus-rails-nested-form.umd.js",
+  "module": "dist/stimulus-rails-nested-form.es.js",
   "scripts": {
-    "format": "prettier-standard  '**/*.{js,css,html}' --format",
-    "lint": "prettier-standard  '**/*.{js,css,html}' --lint",
-    "dev": "snowpack dev",
-    "prod": "snowpack build",
-    "build": "pika build",
+    "format": "prettier-standard  '**/*.{ts,css,html}' --format",
+    "lint": "prettier-standard  '**/*.{ts,css,html}' --lint",
+    "dev": "vite",
+    "prod": "vite build --config /dev/null",
+    "build": "tsc --noEmit && vite build",
+    "version": "yarn build",
     "test": "BABEL_ENV=test jest",
-    "pika:publish": "pika publish --no-2fa",
-    "version": "yarn build"
-  },
-  "dependencies": {
-    "stimulus": "^2.0.0"
+    "np": "np --no-2fa"
   },
   "devDependencies": {
     "@babel/core": "7.11.6",
     "@babel/plugin-syntax-class-properties": "7.10.4",
-    "@babel/preset-env": "7.11.5",
-    "@pika/pack": "0.5.0",
-    "@pika/plugin-build-node": "0.9.2",
-    "@pika/plugin-build-web": "0.9.2",
-    "@pika/plugin-standard-pkg": "0.9.2",
+    "@babel/polyfill": "^7.12.1",
+    "@babel/preset-env": "^7.14.1",
+    "@babel/preset-typescript": "^7.13.0",
     "@snowpack/plugin-babel": "2.1.3",
+    "@testing-library/dom": "^7.30.4",
     "@types/jest": "^26.0.14",
     "babel-jest": "^26.5.2",
     "jest": "^26.5.3",
-    "jest-dev-server": "^4.4.0",
-    "jest-puppeteer": "^4.4.0",
+    "mutationobserver-shim": "^0.3.7",
+    "np": "^7.5.0",
     "prettier-standard": "16.4.1",
-    "puppeteer": "^5.3.1",
-    "snowpack": "2.14.0"
+    "stimulus": "^2.0.0",
+    "typescript": "^4.2.4",
+    "vite": "^2.2.4"
+  },
+  "jest": {
+    "setupFiles": [
+      "<rootDir>/jest/jest-setup.js"
+    ]
+  },
+  "peerDependencies": {
+    "stimulus": "^2.0.0"
   }
 }

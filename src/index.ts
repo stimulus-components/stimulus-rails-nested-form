@@ -1,32 +1,40 @@
 import { Controller } from 'stimulus'
 
 export default class extends Controller {
+  targetTarget: HTMLElement
+  templateTarget: HTMLElement
+  wrapperSelectorValue: string
+  wrapperSelector: string
+
   static targets = ['target', 'template']
   static values = {
     wrapperSelector: String
   }
 
-  initialize () {
+  initialize (): void {
     this.wrapperSelector = this.wrapperSelectorValue || '.nested-form-wrapper'
   }
 
-  add (e) {
+  add (e: Event) {
     e.preventDefault()
 
-    const content = this.templateTarget.innerHTML.replace(/NEW_RECORD/g, new Date().getTime())
+    const content: string = this.templateTarget.innerHTML.replace(/NEW_RECORD/g, new Date().getTime().toString())
     this.targetTarget.insertAdjacentHTML('beforebegin', content)
   }
 
-  remove (e) {
+  remove (e: Event): void {
     e.preventDefault()
 
-    const wrapper = e.target.closest(this.wrapperSelector)
+    // @ts-ignore
+    const wrapper: HTMLElement = e.target.closest(this.wrapperSelector)
 
     if (wrapper.dataset.newRecord === 'true') {
       wrapper.remove()
     } else {
       wrapper.style.display = 'none'
-      wrapper.querySelector("input[name*='_destroy']").value = 1
+
+      const input: HTMLInputElement = wrapper.querySelector("input[name*='_destroy']")
+      input.value = '1'
     }
   }
 }
