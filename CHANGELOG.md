@@ -6,6 +6,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.0.0] - 2021-05-09
+
+## Chore
+
+- Remove puppeteer for Vanilla Jest
+- Moving from [Snowpack](https://www.snowpack.dev/) to [Vite](https://github.com/vitejs/vite)
+- Using stimulus as external library reducing bundle size from `40.63kb` to `0.58kb`.
+- Moving to TypeScript
+- Upgrading Node to 14.16.1
+
 ## [2.0.0] - 2020-12-05
 
 ### Added
