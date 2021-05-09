@@ -1,6 +1,6 @@
 {
   "name": "stimulus-rails-nested-form",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "A Stimulus controller to create new fields on the fly to populate your Rails relationship.",
   "repository": "git@github.com:stimulus-components/stimulus-rails-nested-form.git",
   "author": "Guillaume Briday <guillaumebriday@gmail.com>",
