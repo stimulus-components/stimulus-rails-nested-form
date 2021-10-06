@@ -1,3 +1,7 @@
+/**
+ * @jest-environment jsdom
+ */
+
 import { Application } from '@hotwired/stimulus'
 import NestedForm from '../src/index'
 

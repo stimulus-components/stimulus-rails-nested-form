@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **Breaking** Upgrading Stimulus to `3.x` and change namespace from `stimulus` to `@hotwired/stimulus`.
 - Using default value option for `wrapperSelector`.
+- Upgrading dependencies
 
 ## [3.0.0] - 2021-05-09
 
