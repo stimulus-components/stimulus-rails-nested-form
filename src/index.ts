@@ -1,18 +1,16 @@
-import { Controller } from 'stimulus'
+import { Controller } from '@hotwired/stimulus'
 
 export default class extends Controller {
   targetTarget: HTMLElement
   templateTarget: HTMLElement
   wrapperSelectorValue: string
-  wrapperSelector: string
 
   static targets = ['target', 'template']
   static values = {
-    wrapperSelector: String
-  }
-
-  initialize (): void {
-    this.wrapperSelector = this.wrapperSelectorValue || '.nested-form-wrapper'
+    wrapperSelector: {
+      type: String,
+      default: '.nested-form-wrapper'
+    }
   }
 
   add (e: Event) {
@@ -26,7 +24,7 @@ export default class extends Controller {
     e.preventDefault()
 
     // @ts-ignore
-    const wrapper: HTMLElement = e.target.closest(this.wrapperSelector)
+    const wrapper: HTMLElement = e.target.closest(this.wrapperSelectorValue)
 
     if (wrapper.dataset.newRecord === 'true') {
       wrapper.remove()
