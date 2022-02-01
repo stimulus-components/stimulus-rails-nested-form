@@ -1,3 +1,9 @@
 [build]
   publish="dist"
   command="yarn prod"
+
+[[redirects]]
+  from = "https://stimulus-rails-nested-form.netlify.app/*"
+  to = "https://stimulus-rails-nested-form.stimulus-components.com/:splat"
+  status = 301
+  force = true
