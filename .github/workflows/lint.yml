@@ -6,10 +6,11 @@ jobs:
   eslint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-node@v1
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
         with:
-          node-version: '14.x'
+          node-version-file: '.node-version'
+          cache: 'yarn'
       - run: |
-          yarn install
+          yarn install --silent --non-interactive
           yarn lint
