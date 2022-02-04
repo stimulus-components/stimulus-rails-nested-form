@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Updating workflows
 - Upgrading Node to 16
+- Upgrading dependencies
 
 ## [4.0.0] - 2021-10-06
 
