@@ -5,7 +5,6 @@
 [![](https://github.com/stimulus-components/stimulus-rails-nested-form/workflows/Lint/badge.svg)](https://github.com/stimulus-components/stimulus-rails-nested-form)
 [![](https://github.com/stimulus-components/stimulus-rails-nested-form/workflows/Test/badge.svg)](https://github.com/stimulus-components/stimulus-rails-nested-form)
 [![](https://img.shields.io/github/license/stimulus-components/stimulus-rails-nested-form.svg)](https://github.com/stimulus-components/stimulus-rails-nested-form)
-[![Netlify Status](https://api.netlify.com/api/v1/badges/c21b3ca7-40fa-4de3-aad5-56dbc343ace6/deploy-status)](https://stimulus-rails-nested-form.netlify.com)
 
 ## Getting started
 
@@ -13,7 +12,7 @@ A Stimulus controller to create new fields on the fly to populate your Rails rel
 
 ## 📚 Documentation
 
-See [stimulus-rails-nested-form documentation](https://stimulus-components.netlify.app/docs/components/stimulus-rails-nested-form/).
+See [stimulus-rails-nested-form documentation](https://www.stimulus-components.com/docs/stimulus-rails-nested-form/).
 
 ## 👷‍♂️ Contributing
 
