@@ -8,33 +8,37 @@
   "homepage": "https://github.com/stimulus-components/stimulus-rails-nested-form",
   "private": false,
   "main": "dist/stimulus-rails-nested-form.umd.js",
-  "module": "dist/stimulus-rails-nested-form.es.js",
+  "module": "dist/stimulus-rails-nested-form.mjs",
   "scripts": {
     "format": "prettier-standard  '**/*.{ts,css,html}' --format",
     "lint": "prettier-standard  '**/*.{ts,css,html}' --lint",
     "dev": "vite",
-    "prod": "vite build --config /dev/null",
+    "prod": "vite build --mode netlify",
     "build": "tsc --noEmit && vite build",
     "version": "yarn build",
     "test": "BABEL_ENV=test jest",
     "np": "np --no-2fa"
   },
   "devDependencies": {
-    "@babel/core": "7.17.0",
+    "@babel/core": "7.20.7",
     "@babel/plugin-syntax-class-properties": "7.12.13",
     "@babel/polyfill": "^7.12.1",
-    "@babel/preset-env": "^7.16.11",
-    "@babel/preset-typescript": "^7.16.7",
-    "@hotwired/stimulus": "^3.0.1",
-    "@testing-library/dom": "^8.11.3",
-    "@types/jest": "^27.4.0",
-    "babel-jest": "^27.4.6",
-    "jest": "^27.4.7",
+    "@babel/preset-env": "^7.20.2",
+    "@babel/preset-typescript": "^7.18.6",
+    "@hotwired/stimulus": "^3.2.1",
+    "@testing-library/dom": "^8.19.1",
+    "@types/jest": "^29.2.4",
+    "autoprefixer": "^10.4.13",
+    "babel-jest": "^29.3.1",
+    "jest": "^29.3.1",
+    "jest-environment-jsdom": "^29.3.1",
     "mutationobserver-shim": "^0.3.7",
-    "np": "^7.6.0",
+    "np": "^7.6.2",
+    "postcss": "^8.4.20",
     "prettier-standard": "16.4.1",
-    "typescript": "^4.5.5",
-    "vite": "^2.7.13"
+    "tailwindcss": "^3.2.4",
+    "typescript": "^4.9.4",
+    "vite": "^4.0.3"
   },
   "jest": {
     "setupFiles": [
@@ -42,6 +46,6 @@
     ]
   },
   "peerDependencies": {
-    "@hotwired/stimulus": "^3.0.0"
+    "@hotwired/stimulus": "^3.2.1"
   }
 }
