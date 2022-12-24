@@ -6,11 +6,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.1.0] - 2022-12-23
+
+### Added
+
+- Adding `name` in library export to use the package with CDN, Sprockets and `import-maps`.
+
 ### Chore
 
-- Updating workflows
-- Upgrading Node to 16
-- Upgrading dependencies
+- Using `Stimulus` as external library reducing size from `10.29 KiB` to `0.72 kB`.
+- Bump dependencies.
+- Upgrading to Vite `4.x`.
+- Docs new UI.
+- Upgrading Node to `18.x`.
 
 ## [4.0.0] - 2021-10-06
 
@@ -19,7 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Breaking** Upgrading Stimulus to `3.x` and change namespace from `stimulus` to `@hotwired/stimulus`.
 - Using default value option for `wrapperSelector`.
 - Upgrading dependencies
-- Upgrading Node to 14.18.0
+- Upgrading Node to `14.18.0`
 
 ## [3.0.0] - 2021-05-09
 
