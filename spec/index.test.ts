@@ -44,3 +44,46 @@ describe('#nestedForm', (): void => {
     expect(target.previousElementSibling.innerHTML).toContain('New todo')
   })
 })
+
+describe('#nestedForm tables', (): void => {
+  beforeEach((): void => {
+    startStimulus()
+
+    document.body.innerHTML = `
+      <form data-controller="nested-form" data-nested-form-position-value="beforeend">
+        <template data-nested-form-target="template">
+          <tr class="nested-form-wrapper" data-new-record="true">
+            <td>New todo</td>
+          </div>
+        </template>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Todo</th>
+            </tr>
+          </thead>
+          <tbody data-nested-form-target="target">
+            <tr>
+              <td>Your todo</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <button type="button" data-action="nested-form#add">Add todo</button>
+      </form>
+    `
+  })
+
+  it('should add new todo to end of table body', (): void => {
+    const target: HTMLElement = document.querySelector("[data-nested-form-target='target']")
+    const addButton: HTMLButtonElement = document.querySelector("[data-action='nested-form#add']")
+
+    // @ts-ignore
+    expect(target.lastElementChild.innerHTML.trim()).toContain('<td>Your todo</td>')
+
+    addButton.click()
+
+    expect(target.lastElementChild.innerHTML).toContain('<td>New todo</td>')
+  })
+})

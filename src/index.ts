@@ -4,12 +4,17 @@ export default class extends Controller {
   targetTarget: HTMLElement
   templateTarget: HTMLElement
   wrapperSelectorValue: string
+  positionValue: InsertPosition
 
   static targets = ['target', 'template']
   static values = {
     wrapperSelector: {
       type: String,
       default: '.nested-form-wrapper'
+    },
+    position: {
+      type: String,
+      default: 'beforebegin'
     }
   }
 
@@ -17,7 +22,7 @@ export default class extends Controller {
     e.preventDefault()
 
     const content: string = this.templateTarget.innerHTML.replace(/NEW_RECORD/g, new Date().getTime().toString())
-    this.targetTarget.insertAdjacentHTML('beforebegin', content)
+    this.targetTarget.insertAdjacentHTML(this.positionValue, content)
   }
 
   remove (e: Event): void {
