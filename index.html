@@ -204,6 +204,86 @@
           </button>
         </form>
       </section>
+
+      <section class="mt-16">
+        <form data-controller="nested-form" data-nested-form-position-value="beforeend">
+          <template data-nested-form-target="template">
+            <tr class="odd:bg-gray-100 nested-form-wrapper" data-new-record="true">
+              <td class="p-2">New todo</td>
+              <td class="p-2">
+                <input
+                  id="NEW_RECORD"
+                  name="user[todos_attributes][NEW_RECORD][description]"
+                  class="appearance-none border w-full py-2 px-3 rounded-l-md text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  placeholder="Your todo"
+                />
+              </td>
+              <td class="p-2">
+                <button
+                  class="cursor-pointer inline-flex items-center px-3 sm:text-sm"
+                  type="button"
+                  data-action="nested-form#remove"
+                  title="Remove todo"
+                >
+                  X
+                </button>
+                <input type="hidden" name="user[todos_attributes][NEW_RECORD][_destroy]" />
+              </td>
+            </tr>
+          </template>
+
+          <table class="table-auto border nested-form-wrapper">
+            <thead>
+              <tr>
+                <th class="p-2">Label</th>
+                <th class="p-2">Input</th>
+                <th class="p-2"></th>
+              </tr>
+            </thead>
+            <tbody id="nested-form-target" data-nested-form-target="target">
+              <tr class="odd:bg-gray-100 nested-form-wrapper" data-new-record="false">
+                <td class="p-2">Your todo</td>
+                <td class="p-2">
+                  <input
+                    id="todo-1"
+                    name="user[todos_attributes][0][description]"
+                    class="appearance-none border w-full py-2 px-3 rounded-l-md text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    value="Pet the cat"
+                  />
+                </td>
+
+                <td class="p-2">
+                  <button
+                    class="cursor-pointer inline-flex items-center px-3 sm:text-sm"
+                    type="button"
+                    data-action="nested-form#remove"
+                    title="Remove todo"
+                  >
+                    X
+                  </button>
+                  <input type="hidden" name="user[todos_attributes][0][_destroy]" />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <button
+            id="nested-form-button"
+            type="button"
+            data-action="nested-form#add"
+            class="mt-4 bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border rounded shadow"
+          >
+            Add todo
+          </button>
+
+          <button
+            type="submit"
+            class="mt-4 bg-indigo-600 hover:bg-indigo-400 text-white font-semibold py-2 px-4 border rounded shadow"
+          >
+            Save todos
+          </button>
+        </form>
+      </section>
     </div>
 
     <!-- This example requires Tailwind CSS v2.0+ -->
