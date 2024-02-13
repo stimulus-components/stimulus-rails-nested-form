@@ -17,6 +17,7 @@ See [stimulus-rails-nested-form documentation](https://www.stimulus-components.c
 ## 👷‍♂️ Contributing
 
 Do not hesitate to contribute to the project by adapting or adding features ! Bug reports or pull requests are welcome.
+See [CONTRIBUTING.md] for more details.
 
 ## 📝 License
 
