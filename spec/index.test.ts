@@ -48,6 +48,7 @@ describe('#nestedForm', (): void => {
     const controllerElement: HTMLButtonElement = document.querySelector("[data-controller='nested-form']")
     const addButton: HTMLButtonElement = document.querySelector("[data-action='nested-form#add']")
 
+    // @ts-ignore following line
     jest.spyOn(global, 'Event').mockImplementation((type: string, eventInit?: any) => ({ type, eventInit }))
     const mockDispatchEvent = jest.spyOn(controllerElement, 'dispatchEvent').mockImplementation(() => true)
 
