@@ -16,53 +16,60 @@ export default class extends Controller {
   add(e: Event) {
     e.preventDefault()
 
-    // Generate a unique identifier based on the current time
-    const uniqueId = new Date().getTime().toString()
+    // Generate a unique identifier that combines the current time with a random value
+    const uniqueId = `${Date.now()}-${Math.floor(Math.random() * 1000)}`;
 
-    // Clone the template content and replace NEW_RECORD with uniqueId
+    // Clone the template content and replace NEW_RECORD with the new uniqueId
     let content = this.templateTarget.innerHTML.replace(/NEW_RECORD/g, uniqueId)
 
     // Insert the cloned and modified content before the target
     this.targetTarget.insertAdjacentHTML('beforebegin', content)
 
-    // Find the last set of fields added and adjust their attributes
-    const lastAddedFields = this.element.querySelector(`[data-fields-id="${uniqueId}"]`);
-    if (lastAddedFields) {
-      lastAddedFields.querySelectorAll('input, select, textarea').forEach((input) => {
-        if (input.hasAttribute('name')) {
-          const updatedName = input.getAttribute('name').replace(/\[\d+\]/, `[${uniqueId}]`);
-          input.setAttribute('name', updatedName);
-        }
-        if (input.hasAttribute('id')) {
-          const updatedId = input.getAttribute('id').replace(/_\d+/, `_${uniqueId}`);
-          input.setAttribute('id', updatedId);
-        }
-      });
-
-      // Update the 'for' attributes of associated labels
-      lastAddedFields.querySelectorAll('label').forEach((label) => {
-        if (label.hasAttribute('for')) {
-          const updatedFor = label.getAttribute('for').replace(/_\d+/, `_${uniqueId}`);
-          label.setAttribute('for', updatedFor);
-        }
-      });
-    }
+    // Adjust the attributes of the last set of fields added
+    this.updateNestedAttributes(this.targetTarget.previousElementSibling, uniqueId);
   }
 
   remove(e: Event): void {
     e.preventDefault()
 
     //@ts-ignore
-    // Find the closest wrapper using the provided selector value
     const wrapper = e.target.closest(this.wrapperSelectorValue)
 
     if (wrapper.dataset.newRecord === 'true') {
-      wrapper.remove() // Remove the wrapper if it's a newly added record
+      wrapper.remove()
     } else {
-      wrapper.style.display = 'none' // Hide the wrapper for existing records
+      wrapper.style.display = 'none'
       //@ts-ignore
       const input = wrapper.querySelector("input[name*='_destroy']")
-      input.value = '1' // Mark the record for destruction on form submission
+      input.value = '1'
     }
+  }
+
+  updateNestedAttributes(element, uniqueId) {
+    // This method recursively updates names and IDs of nested attributes
+    element.querySelectorAll('input, select, textarea, label').forEach((el) => {
+      const nameAttr = el.getAttribute('name');
+      const idAttr = el.getAttribute('id');
+      const forAttr = el.getAttribute('for');
+
+      if (nameAttr) {
+        const newName = nameAttr.replace(/\[\d+\](?=\[\w+_attributes\])/g, `[${uniqueId}]`);
+        el.setAttribute('name', newName);
+      }
+      if (idAttr) {
+        const newId = idAttr.replace(/_\d+_/g, `_${uniqueId}_`);
+        el.setAttribute('id', newId);
+      }
+      if (forAttr && el.tagName === 'LABEL') {
+        const newFor = forAttr.replace(/_\d+_/g, `_${uniqueId}_`);
+        el.setAttribute('for', newFor);
+      }
+    });
+
+    // Recursively update nested forms
+    element.querySelectorAll('.nested-form-wrapper').forEach(nestedElement => {
+      const newUniqueId = `${Date.now()}-${Math.floor(Math.random() * 1000)}`;
+      this.updateNestedAttributes(nestedElement, newUniqueId);
+    });
   }
 }
