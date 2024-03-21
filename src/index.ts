@@ -38,9 +38,8 @@ export default class extends Controller {
     // Retrieve the wrapper selector from values
     const wrapperSelector = this.wrapperSelectorValue || '.nested-form-wrapper';
 
-    const targetElement = e.target as Element;
     // Find the closest wrapper to the event's target
-    const wrapper = targetElement.closest(wrapperSelector);
+    const wrapper = (event.target as Element).closest(wrapperSelector);
     if (wrapper?.dataset.newRecord === 'true') {
       wrapper.remove();
     } else {
