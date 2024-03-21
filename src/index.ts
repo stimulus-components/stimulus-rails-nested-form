@@ -1,75 +1,53 @@
 import { Controller } from '@hotwired/stimulus'
 
+// Define the controller extending from Stimulus Controller
 export default class extends Controller {
-  targetTarget: HTMLElement
-  templateTarget: HTMLElement
-  wrapperSelectorValue: string
-
-  static targets = ['target', 'template']
   static values = {
-    wrapperSelector: {
-      type: String,
-      default: '.nested-form-wrapper'
-    }
+    wrapperSelector: String,
+    target: String,
+    template: String,
+    recordPlaceholder: String
   }
 
+  // Function to handle the addition of a new nested form
   add(e: Event) {
     e.preventDefault()
 
-    // Generate a unique identifier that combines the current time with a random value
-    const uniqueId = `${Date.now()}-${Math.floor(Math.random() * 1000)}`;
+    // Retrieve the template and target selectors from values
+    const templateSelector = this.templateValue || 'template';
+    const targetSelector = this.targetValue || 'target';
 
-    // Clone the template content and replace NEW_RECORD with the new uniqueId
-    let content = this.templateTarget.innerHTML.replace(/NEW_RECORD/g, uniqueId)
+    // Use the selectors to find the actual elements in the DOM
+    const templateElement = this.element.querySelector(`[data-${this.identifier}-target='${templateSelector}']`);
+    const targetElement = this.element.querySelector(`[data-${this.identifier}-target='${targetSelector}']`);
 
-    // Insert the cloned and modified content before the target
-    this.targetTarget.insertAdjacentHTML('beforebegin', content)
+    if (templateElement) {
+      // Generate a unique ID
+      const uniqueId = new Date().getTime().toString();
 
-    // Adjust the attributes of the last set of fields added
-    this.updateNestedAttributes(this.targetTarget.previousElementSibling, uniqueId);
-  }
-
-  remove(e: Event): void {
-    e.preventDefault()
-
-    //@ts-ignore
-    const wrapper = e.target.closest(this.wrapperSelectorValue)
-
-    if (wrapper.dataset.newRecord === 'true') {
-      wrapper.remove()
-    } else {
-      wrapper.style.display = 'none'
-      //@ts-ignore
-      const input = wrapper.querySelector("input[name*='_destroy']")
-      input.value = '1'
+      // Replace the placeholder in the template content and insert it before the target element
+      const content = templateElement.innerHTML.replace(new RegExp(this.recordPlaceholderValue || 'NEW_RECORD', 'g'), uniqueId);
+      targetElement?.insertAdjacentHTML('beforebegin', content);
     }
   }
 
-  updateNestedAttributes(element, uniqueId) {
-    // This method recursively updates names and IDs of nested attributes
-    element.querySelectorAll('input, select, textarea, label').forEach((el) => {
-      const nameAttr = el.getAttribute('name');
-      const idAttr = el.getAttribute('id');
-      const forAttr = el.getAttribute('for');
+  // Function to handle the removal of a nested form
+  remove(e: Event) {
+    e.preventDefault()
 
-      if (nameAttr) {
-        const newName = nameAttr.replace(/\[\d+\](?=\[\w+_attributes\])/g, `[${uniqueId}]`);
-        el.setAttribute('name', newName);
-      }
-      if (idAttr) {
-        const newId = idAttr.replace(/_\d+_/g, `_${uniqueId}_`);
-        el.setAttribute('id', newId);
-      }
-      if (forAttr && el.tagName === 'LABEL') {
-        const newFor = forAttr.replace(/_\d+_/g, `_${uniqueId}_`);
-        el.setAttribute('for', newFor);
-      }
-    });
+    // Retrieve the wrapper selector from values
+    const wrapperSelector = this.wrapperSelectorValue || '.nested-form-wrapper';
 
-    // Recursively update nested forms
-    element.querySelectorAll('.nested-form-wrapper').forEach(nestedElement => {
-      const newUniqueId = `${Date.now()}-${Math.floor(Math.random() * 1000)}`;
-      this.updateNestedAttributes(nestedElement, newUniqueId);
-    });
+    const targetElement = e.target as Element;
+    // Find the closest wrapper to the event's target
+    const wrapper = targetElement.closest(wrapperSelector);
+    if (wrapper?.dataset.newRecord === 'true') {
+      wrapper.remove();
+    } else {
+      wrapper.style.display = 'none';
+      // Mark the record for destruction on submit
+      const input = wrapper.querySelector("input[name*='_destroy']");
+      if (input) input.value = '1';
+    }
   }
 }
