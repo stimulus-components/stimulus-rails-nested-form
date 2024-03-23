@@ -19,7 +19,8 @@ export default class extends Controller {
     const content: string = this.templateTarget.innerHTML.replace(/NEW_RECORD/g, new Date().getTime().toString())
     this.targetTarget.insertAdjacentHTML('beforebegin', content)
 
-    this.element.dispatchEvent(new Event('nested-form:add', { bubbles: true }))
+    const event = new CustomEvent('rails-nested-form:add', { bubbles: true })
+    this.element.dispatchEvent(event)
   }
 
   remove (e: Event): void {
@@ -36,5 +37,8 @@ export default class extends Controller {
       const input: HTMLInputElement = wrapper.querySelector("input[name*='_destroy']")
       input.value = '1'
     }
+
+    const event = new CustomEvent('rails-nested-form:remove', { bubbles: true })
+    this.element.dispatchEvent(event)
   }
 }

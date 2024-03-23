@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Dispatch `rails-nested-form:add` and `rails-nested-form:remove` events.
+
 ## [4.1.0] - 2022-12-23
 
 ### Added

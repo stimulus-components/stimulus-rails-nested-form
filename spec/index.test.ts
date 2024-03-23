@@ -48,14 +48,17 @@ describe('#nestedForm', (): void => {
     const controllerElement: HTMLButtonElement = document.querySelector("[data-controller='nested-form']")
     const addButton: HTMLButtonElement = document.querySelector("[data-action='nested-form#add']")
 
-    // @ts-ignore following line
-    jest.spyOn(global, 'Event').mockImplementation((type: string, eventInit?: any) => ({ type, eventInit }))
+    // @ts-ignore
+    jest.spyOn(global, 'CustomEvent').mockImplementation((type: string, eventInit?: any) => ({ type, eventInit }))
     const mockDispatchEvent = jest.spyOn(controllerElement, 'dispatchEvent').mockImplementation(() => true)
 
     addButton.click()
 
     expect(mockDispatchEvent).toHaveBeenCalledWith({
-      type: 'nested-form:add'
+      type: 'rails-nested-form:add',
+      eventInit: {
+        bubbles: true
+      }
     })
   })
 })
