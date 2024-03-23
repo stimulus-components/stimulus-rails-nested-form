@@ -2,15 +2,15 @@
  * @jest-environment jsdom
  */
 
-import { Application } from '@hotwired/stimulus'
-import NestedForm from '../src/index'
+import { Application } from "@hotwired/stimulus"
+import RailsNestedForm from "../src/index"
 
 const startStimulus = (): void => {
   const application = Application.start()
-  application.register('nested-form', NestedForm)
+  application.register("nested-form", RailsNestedForm)
 }
 
-describe('#nestedForm', (): void => {
+describe("#nestedForm", (): void => {
   beforeEach((): void => {
     startStimulus()
 
@@ -33,32 +33,32 @@ describe('#nestedForm', (): void => {
     `
   })
 
-  it('should create new todo', (): void => {
+  it("should create new todo", (): void => {
     const target: HTMLElement = document.querySelector("[data-nested-form-target='target']")
     const addButton: HTMLButtonElement = document.querySelector("[data-action='nested-form#add']")
 
-    expect(target.previousElementSibling.innerHTML).toContain('Your todo')
+    expect(target.previousElementSibling.innerHTML).toContain("Your todo")
 
     addButton.click()
 
-    expect(target.previousElementSibling.innerHTML).toContain('New todo')
+    expect(target.previousElementSibling.innerHTML).toContain("New todo")
   })
 
-  it('should dispatch events', (): void => {
+  it("should dispatch events", (): void => {
     const controllerElement: HTMLButtonElement = document.querySelector("[data-controller='nested-form']")
     const addButton: HTMLButtonElement = document.querySelector("[data-action='nested-form#add']")
 
     // @ts-ignore
-    jest.spyOn(global, 'CustomEvent').mockImplementation((type: string, eventInit?: any) => ({ type, eventInit }))
-    const mockDispatchEvent = jest.spyOn(controllerElement, 'dispatchEvent').mockImplementation(() => true)
+    jest.spyOn(global, "CustomEvent").mockImplementation((type: string, eventInit?: any) => ({ type, eventInit }))
+    const mockDispatchEvent = jest.spyOn(controllerElement, "dispatchEvent").mockImplementation(() => true)
 
     addButton.click()
 
     expect(mockDispatchEvent).toHaveBeenCalledWith({
-      type: 'rails-nested-form:add',
+      type: "rails-nested-form:add",
       eventInit: {
-        bubbles: true
-      }
+        bubbles: true,
+      },
     })
   })
 })

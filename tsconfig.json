@@ -1,7 +1,8 @@
 {
   "compilerOptions": {
     "lib": ["dom", "es6"],
-    "types": ["vite/client", "jest"],
+    "types": ["vite/client"],
     "skipLibCheck": true
-  }
+  },
+  "exclude": ["node_modules", "spec", "jest"]
 }
