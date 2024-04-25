@@ -3,6 +3,7 @@ import { Controller } from "@hotwired/stimulus"
 export default class RailsNestedForm extends Controller {
   targetTarget: HTMLElement
   templateTarget: HTMLElement
+  templateTargets: HTMLElement[]
   wrapperSelectorValue: string
 
   static targets = ["target", "template"]
@@ -16,7 +17,9 @@ export default class RailsNestedForm extends Controller {
   add(e: Event): void {
     e.preventDefault()
 
-    const content: string = this.templateTarget.innerHTML.replace(/NEW_RECORD/g, new Date().getTime().toString())
+    const templateTarget = this.resolveTemplate(e.target as HTMLElement)
+
+    const content: string = templateTarget.innerHTML.replace(/NEW_RECORD/g, new Date().getTime().toString())
     this.targetTarget.insertAdjacentHTML("beforebegin", content)
 
     const event = new CustomEvent("rails-nested-form:add", { bubbles: true })
@@ -40,5 +43,15 @@ export default class RailsNestedForm extends Controller {
 
     const event = new CustomEvent("rails-nested-form:remove", { bubbles: true })
     this.element.dispatchEvent(event)
+  }
+
+  private resolveTemplate(element: HTMLElement): string {
+    if (element.dataset.templateName) {
+      return this.templateTargets.find((templateTarget: HTMLEelement): boolean => (
+        templateTarget.dataset.templateName === element.dataset.templateName
+      ))
+    }
+
+    return this.templateTarget
   }
 }

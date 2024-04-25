@@ -148,6 +148,40 @@
             </div>
           </template>
 
+          <template data-nested-form-target="template" data-template-name="todo_with_deadline">
+            <div class="mt-4 nested-form-wrapper" data-new-record="true">
+              <label for="NEW_RECORD" class="block text-sm font-medium leading-5 text-gray-700">New todo</label>
+              <div class="mt-1 flex relative rounded-md shadow-sm space-x-4">
+                <input
+                  id="NEW_RECORD"
+                  name="user[todos_attributes][NEW_RECORD][description]"
+                  class="appearance-none border w-full py-2 px-3 rounded-l-md text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  placeholder="Your todo"
+                />
+
+                <input
+                  id="NEW_RECORD"
+                  name="user[todos_attributes][NEW_RECORD][deadline_at]"
+                  class="appearance-none border w-full py-2 px-3 rounded-l-md text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  type="date"
+                  placeholder="Your todo"
+                />
+
+
+                <button
+                  class="cursor-pointer inline-flex items-center px-3 rounded-r-md border border-l-0 border-gray-300 bg-gray-100 text-gray-500 sm:text-sm"
+                  type="button"
+                  data-action="nested-form#remove"
+                  title="Remove todo"
+                >
+                  X
+                </button>
+
+                <input type="hidden" name="user[todos_attributes][NEW_RECORD][_destroy]" />
+              </div>
+            </div>
+          </template>
+
           <div class="mt-4 nested-form-wrapper" data-new-record="false">
             <label for="todo-1" class="block text-sm font-medium leading-5 text-gray-700">Your todo</label>
             <div class="mt-1 flex relative rounded-md shadow-sm">
@@ -180,6 +214,16 @@
             class="mt-4 bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border rounded shadow"
           >
             Add todo
+          </button>
+
+          <button
+            id="nested-form-button"
+            type="button"
+            data-template-name="todo_with_deadline"
+            data-action="nested-form#add"
+            class="mt-4 bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border rounded shadow"
+          >
+            Add todo with deadline
           </button>
 
           <button
