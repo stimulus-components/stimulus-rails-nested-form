@@ -22,13 +22,19 @@ describe("#nestedForm", (): void => {
           </div>
         </template>
 
+        <template data-nested-form-target="template" data-template-name="todo_with_deadline">
+          <div class="nested-form-wrapper" data-new-record="true">
+            <label for="NEW_RECORD">New todo with deadline</label>
+          </div>
+        </template>
+
         <div>
           <label>Your todo</label>
         </div>
 
         <div data-nested-form-target="target"></div>
 
-        <button type="button" data-action="nested-form#add">Add todo</button>
+        <button type="button" data-action="nested-form#add" data-template-name="todo_with_deadline">Add todo</button>
       </form>
     `
   })
@@ -42,6 +48,17 @@ describe("#nestedForm", (): void => {
     addButton.click()
 
     expect(target.previousElementSibling.innerHTML).toContain("New todo")
+  })
+
+  it("should create new todo with custom template", (): void => {
+    const target: HTMLElement = document.querySelector("[data-nested-form-target='target']")
+    const addButton: HTMLButtonElement = document.querySelector("[data-action='nested-form#add'][data-template-name='todo_with_deadline']")
+
+    expect(target.previousElementSibling.innerHTML).toContain("Your todo")
+
+    addButton.click()
+
+    expect(target.previousElementSibling.innerHTML).toContain("New todo with deadline")
   })
 
   it("should dispatch events", (): void => {
